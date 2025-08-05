@@ -11,11 +11,13 @@ SPREADSHEET_ID = '1jk-hvI6K-DABDtT1hjFdo-dqccUM_jINDv1zhRDBlnk'
 RANGE_NAME = 'Sheet1!A2:E'
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
-# Load credentials.json (should be uploaded in Render's dashboard or root)
-credentials = Credentials.from_service_account_file(
-    os.path.join(os.path.dirname(__file__), 'credentials.json'),
+creds_dict = json.loads(os.environ['GOOGLE_CREDS_JSON'])
+
+credentials = Credentials.from_service_account_info(
+    creds_dict,
     scopes=SCOPES
 )
+
 service = build("sheets", "v4", credentials=credentials)
 sheet = service.spreadsheets()
 
