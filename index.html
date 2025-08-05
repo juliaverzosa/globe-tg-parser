@@ -14,20 +14,40 @@
         <p id="response"></p>
     </div>
 
-    <script>
-        async function submitData() {
-            const message = document.getElementById("message").value;
-            const responseEl = document.getElementById("response");
+<script>
+    async function submitData() {
+        const message = document.getElementById("message").value;
+        const responseEl = document.getElementById("response");
+        const button = document.querySelector("button");
 
+        // Show loading state
+        button.disabled = true;
+        button.innerText = "Submitting...";
+        responseEl.innerText = ""; // clear previous response
+
+        try {
             const res = await fetch("https://globe-tg-parser.onrender.com", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message })
+                body: JSON.stringify({ message }),
             });
 
             const data = await res.json();
-            responseEl.innerText = data.message;
+
+            if (res.ok) {
+                responseEl.innerText = "✅ " + (data.message || "Report submitted successfully!");
+            } else {
+                responseEl.innerText = "❌ Failed to submit: " + (data.message || "Unknown error");
+            }
+        } catch (error) {
+            responseEl.innerText = "❌ Network error: " + error.message;
+        } finally {
+            // Restore button
+            button.disabled = false;
+            button.innerText = "Submit to Google Sheets";
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
