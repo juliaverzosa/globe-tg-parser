@@ -19,7 +19,7 @@
             const message = document.getElementById("message").value;
             const responseEl = document.getElementById("response");
 
-            const res = await fetch("https://globe-tg-parser.onrender.com" {
+            const res = await fetch("https://globe-tg-parser.onrender.com", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message })
