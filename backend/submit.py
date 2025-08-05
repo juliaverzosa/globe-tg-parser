@@ -7,7 +7,9 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "https://globe-tg-parser.vercel.app/"}})
+
+
 SPREADSHEET_ID = '1jk-hvI6K-DABDtT1hjFdo-dqccUM_jINDv1zhRDBlnk'
 RANGE_NAME = 'Sheet1!A2:E'
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
