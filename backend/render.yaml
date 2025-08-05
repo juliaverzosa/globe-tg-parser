@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: telegram-parser-api
+    runtime: python
+    buildCommand: ""
+    startCommand: gunicorn submit:app
+    envVars:
+      - key: GOOGLE_APPLICATION_CREDENTIALS
+        value: credentials.json

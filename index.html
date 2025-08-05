@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Parser</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Telegram Report Parser</h1>
+        <textarea id="message" placeholder="Paste Telegram report here..."></textarea>
+        <button onclick="submitData()">Submit to Google Sheets</button>
+        <p id="response"></p>
+    </div>
+
+    <script>
+        async function submitData() {
+            const message = document.getElementById("message").value;
+            const responseEl = document.getElementById("response");
+
+            const res = await fetch("/api/submit", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message })
+            });
+
+            const data = await res.json();
+            responseEl.innerText = data.message;
+        }
+    </script>
+</body>
+</html>
